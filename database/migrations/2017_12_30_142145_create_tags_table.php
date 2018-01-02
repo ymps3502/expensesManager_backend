@@ -17,6 +17,8 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name', 10);
+            // $table->unsignedInteger('bill_id');
+            // $table->unsignedSmallInteger('sub_tag_id');
         });
     }
 

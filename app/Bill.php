@@ -14,20 +14,22 @@ class Bill extends Model
     protected $guarded = [];
 
     /**
-     * Bill 和 Tag 為一對一關係
+     * Bill 屬於 Tag
      *
-     * @return HasOne
+     * @return belongsTo
      */
-    public function tag() {
-        return $this->hasOne('App\Tag');
+    public function tag()
+    {
+        return $this->belongsTo('App\Tag');
     }
 
     /**
-     * Bill 和 SubTag 為一對一關係
+     * Bill 屬於 subtag
      *
-     * @return HasOne
+     * @return belongsTo
      */
-    public function subtag() {
-        return $this->hasOne('App\SubTag');
+    public function subtag()
+    {
+        return $this->belongsTo('App\Subtag');
     }
 }

@@ -19,7 +19,9 @@ class CreateBillsTable extends Migration
             $table->time('time');
             $table->string('role', 10);
             $table->unsignedSmallInteger('cost');
-            $table->text('note');
+            $table->text('note')->nullable();
+            $table->unsignedSmallInteger('tag_id');
+            $table->unsignedSmallInteger('subtag_id')->nullable();
         });
     }
 

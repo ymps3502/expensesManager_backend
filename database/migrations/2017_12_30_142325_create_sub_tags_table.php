@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSubTagsTable extends Migration
+class CreateSubtagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateSubTagsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sub_tags', function (Blueprint $table) {
+        Schema::create('subtags', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
             $table->string('name', 10);
+            $table->unsignedSmallInteger('tag_id');
+            // $table->unsignedInteger('bill_id');
         });
     }
 
@@ -27,6 +29,6 @@ class CreateSubTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sub_tags');
+        Schema::dropIfExists('subtags');
     }
 }
