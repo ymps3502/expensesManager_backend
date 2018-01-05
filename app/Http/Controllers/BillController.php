@@ -3,18 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Bill;
+use App\Repositories\BillRepository;
 use Illuminate\Http\Request;
 
 class BillController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    protected $repository;
+
+    public function __construct(BillREpository $repository)
     {
-        //
+        $this->repository = $repository;
+    }
+
+    public function allCost()
+    {
+        $bills = $this->repository->allCost();
     }
 
     /**
@@ -22,9 +25,10 @@ class BillController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $this->repository->create($request->all());
+        return response()->json(['message' => 'add bill successfuly'], 201);
     }
 
     /**

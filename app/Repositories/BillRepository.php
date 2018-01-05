@@ -24,7 +24,7 @@ class BillRepository
 
     public function allCost()
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
+        return Bill::select('id', 'role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
             ->with([
                 'tag' => function ($query) { $query->select('id', 'name'); },
                 'subtag' => function ($query) { $query->select('id', 'name'); }

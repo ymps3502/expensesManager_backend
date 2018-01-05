@@ -3,6 +3,7 @@
 namespace Tests;
 
 use Artisan;
+use Mockery;
 use Mockery\MockInterface;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -25,7 +26,6 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         Artisan::call('migrate');
-        Artisan::call('db:seed');
     }
 
     protected function resetDatabase()
@@ -42,7 +42,7 @@ abstract class TestCase extends BaseTestCase
     protected function initMock(string $className) : MockInterface
     {
         $mock = Mockery::mock($className);
-        App::instance($className, $mock);
+        $this->app->instance($className, $mock);
 
         return $mock;
     }
