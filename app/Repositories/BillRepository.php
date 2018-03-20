@@ -149,7 +149,10 @@ class BillRepository
     {
         return Bill::select('id', 'role', 'time', 'cost')
             ->where('role', $role)
-            ->whereMonth('time', date('m'))
+            ->whereBetween('time', [
+                date('Y-m-d', strtotime('last monday', strtotime('now'))), 
+                date('Y-m-d', strtotime('next sunday', strtotime('now')))
+                ])
             ->get();
     }
 
@@ -157,10 +160,7 @@ class BillRepository
     {
         return Bill::select('id', 'role', 'time', 'cost')
             ->where('role', $role)
-            ->whereBetween('time', [
-                date('Y-m-d', strtotime('last monday', strtotime('now'))), 
-                date('Y-m-d', strtotime('next sunday', strtotime('now')))
-                ])
+            ->whereMonth('time', date('m'))
             ->get();
     }
 
