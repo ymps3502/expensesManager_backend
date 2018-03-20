@@ -18,6 +18,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'bill'], function () {
-    Route::get('all', 'BillController@allCost');
-    Route::post('add', 'BillController@create');
+    Route::post('add', 'BillController@store');
+    Route::get('all', 'BillController@showAllCost');
+    Route::get('tag/{id}', 'BillController@showTagCost');
+    Route::group(['prefix' => 'today'], function () {
+        Route::get('/', 'BillController@showTodayCost');
+        Route::get('tag', 'BillController@showTodayTagCost');
+        Route::get('{role}', 'BillController@showTodayRoleCost');
+    });
+    Route::group(['prefix' => 'week'], function () {
+        Route::get('/', 'BillController@showWeekCost');
+        Route::get('tag', 'BillController@showWeekTagCost');
+        Route::get('{role}', 'BillController@showWeekRoleCost');
+    });
+    Route::group(['prefix' => 'month'], function () {
+        Route::get('/', 'BillController@showMonthCost');
+        Route::get('tag', 'BillController@showMonthTagCost');
+        Route::get('{role}', 'BillController@showMonthRoleCost');
+    });
+    Route::group(['prefix' => 'year'], function () {
+        Route::get('/', 'BillController@showYearCost');
+        Route::get('tag', 'BillController@showYearTagCost');
+        Route::get('{role}', 'BillController@showYearRoleCost');
+    });
+    Route::put('update/{id}', 'BillController@update');
+    Route::delete('delete/{id}', 'BillController@destroy');
 });
