@@ -52,7 +52,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testCreate()
     {
@@ -69,7 +68,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testUpdate()
     {
@@ -97,7 +95,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testDelete()
     {
@@ -109,7 +106,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testAllCost()
     {
@@ -120,7 +116,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testTagCost()
     {
@@ -134,7 +129,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testTodayCost()
     {
@@ -147,7 +141,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testweekCost()
     {
@@ -163,7 +156,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testMonthCost()
     {
@@ -179,7 +171,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testYearCost()
     {
@@ -195,7 +186,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testTodayCostByTag()
     {
@@ -212,7 +202,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testWeekCostByTag()
     {
@@ -232,7 +221,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testMonthCostByTag()
     {
@@ -252,7 +240,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testYearCostByTag()
     {
@@ -272,7 +259,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testTodayCostByRole()
     {
@@ -289,7 +275,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testWeekCostByRole()
     {
@@ -309,7 +294,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testMonthCostByRole()
     {
@@ -329,7 +313,6 @@ class BillRepositoryTest extends TestCase
 
     /**
      * @group BillRepository
-     * @group ignore
      */
     public function testYearCostByRole()
     {
