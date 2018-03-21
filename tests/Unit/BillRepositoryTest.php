@@ -1,10 +1,12 @@
 <?php
 
-use tests\TestCase;
+use Tests\TestCase;
+use Tests\Unit\SeedData;
 use App\Repositories\BillRepository;
 
 class BillRepositoryTest extends TestCase
 {
+    use SeedData;
     protected $repository = null;
 
     protected function setUp()
@@ -15,33 +17,6 @@ class BillRepositoryTest extends TestCase
         $this->seedData("thisWeek");
         
         $this->repository = new BillRepository();
-    }
-
-    public function seedData(string $state)
-    {
-        factory(App\Tag::class, 5)->create()->each(function ($t) use ($state)
-        {
-            $subtag = factory(App\Subtag::class, rand(1, 4))->create(['tag_id' => $t->id])->each(function ($st) use ($state)
-            {
-                $num = 10;
-                switch ($state) {
-                    case 'thisWeek':
-                        $bill = factory(App\Bill::class, $num)->states($state)->create(['subtag_id' => $st->id, 'tag_id' => $st->tag_id]);
-                        break;
-                    case 'thisMonth':
-                        $bill = factory(App\Bill::class, $num)->states($state)->create(['subtag_id' => $st->id, 'tag_id' => $st->tag_id]);
-                        break;
-                    case 'thisYear':
-                        $bill = factory(App\Bill::class, $num)->states($state)->create(['subtag_id' => $st->id, 'tag_id' => $st->tag_id]);
-                        break;
-                    default:
-                        $bill = factory(App\Bill::class, $num)->create(['subtag_id' => $st->id, 'tag_id' => $st->tag_id]);
-                        break;
-                }
-                $st->bill()->save($bill->first());
-            });
-            $t->subtag()->save($subtag->first());
-        });
     }
 
     protected function tearDown()
