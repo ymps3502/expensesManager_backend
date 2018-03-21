@@ -44,3 +44,16 @@ Route::group(['prefix' => 'bill'], function () {
     Route::put('update/{id}', 'BillController@update');
     Route::delete('delete/{id}', 'BillController@destroy');
 });
+
+Route::group(['prefix' => 'tag'], function () {
+    Route::post('add', 'TagController@storeTag');
+    Route::get('all', 'TagController@showAllTag');
+    Route::put('update/{id}', 'TagController@updateTag');
+    Route::delete('delete/{id}', 'TagController@destroyTag');
+});
+
+Route::group(['prefix' => 'subtag'], function () {
+    Route::post('add', 'TagController@storeSubtag');
+    Route::put('update/{id}', 'TagController@updateSubtag');
+    Route::delete('delete/{id}', 'TagController@destroySubtag');
+});
