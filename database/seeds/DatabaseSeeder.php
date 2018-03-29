@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         $tables = array_map('current', DB::select('SHOW TABLES'));
         foreach ($tables as $table) {
             //if you don't want to truncate migrations
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
             DB::table($table)->truncate();
         }
         $this->seedData("thisYear");
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }
