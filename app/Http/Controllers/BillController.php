@@ -75,12 +75,11 @@ class BillController extends Controller
     /**
      * Display the specified resource.
      * 
-     * @param  string $role
      * @return \App\Bill
      */
-    public function showTodayRoleCost(string $role)
+    public function showTodayRoleCost()
     {
-        $bills = $this->repository->todayCostByRole($role);
+        $bills = $this->repository->todayCostByRole();
         return $bills;
     }
 
@@ -109,12 +108,11 @@ class BillController extends Controller
     /**
      * Display the specified resource.
      * 
-     * @param  string $role
      * @return \App\Bill
      */
-    public function showWeekRoleCost(string $role)
+    public function showWeekRoleCost()
     {
-        $bills = $this->repository->weekCostByRole($role);
+        $bills = $this->repository->weekCostByRole();
         return $bills;
     }
 
@@ -143,12 +141,11 @@ class BillController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string $role
      * @return \App\Bill
      */
-    public function showMonthRoleCost(string $role)
+    public function showMonthRoleCost()
     {
-        $bills = $this->repository->monthCostByRole($role);
+        $bills = $this->repository->monthCostByRole();
         return $bills;
     }
 
@@ -177,12 +174,11 @@ class BillController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  string $role
      * @return \App\Bill
      */
-    public function showYearRoleCost(string $role)
+    public function showYearRoleCost()
     {
-        $bills = $this->repository->yearCostByRole($role);
+        $bills = $this->repository->yearCostByRole();
         return $bills;
     }
 
