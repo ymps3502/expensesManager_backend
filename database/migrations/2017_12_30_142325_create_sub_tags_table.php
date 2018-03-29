@@ -17,7 +17,8 @@ class CreateSubtagsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('name', 10);
-            $table->unsignedSmallInteger('tag_id');
+            $table->unsignedInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
             // $table->unsignedInteger('bill_id');
         });
     }
