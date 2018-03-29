@@ -15,9 +15,17 @@ $factory->define(App\Bill::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(App\Bill::class, 'today', function (Faker $faker) {
+    return [
+        'time' => $faker->dateTimeBetween($startDate = '-0 days', $endDate = 'now', $timezone = 'Asia/Taipei')->format('Y-m-d H:i'),
+        'tag_id' => $faker->randomElement(App\Tag::pluck('id')->toArray())
+    ];
+});
+
 $factory->state(App\Bill::class, 'thisWeek', function (Faker $faker) {
     return [
-        'time' => $faker->dateTimeBetween($startDate = '-7 days', $endDate = 'now', $timezone = 'Asia/Taipei')->format('Y-m-d H:i')
+        'time' => $faker->dateTimeBetween($startDate = '-7 days', $endDate = 'now', $timezone = 'Asia/Taipei')->format('Y-m-d H:i'),
+        'tag_id' => $faker->randomElement(App\Tag::pluck('id')->toArray())
     ];
 });
 
