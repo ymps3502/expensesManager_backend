@@ -34,7 +34,7 @@ class BillRepository
 
     public function tagCost(int $tagId)
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
+        return Bill::select('id', 'role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
             ->where('tag_id', $tagId)
             ->with([
                 'tag' => function ($query) { $query->select('id', 'name'); },
@@ -45,130 +45,110 @@ class BillRepository
 
     public function todayCost()
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id')
-            ->whereDate('time', '=', date('Y-m-d'))
-            ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
-                ])
+        return Bill::select('role', 'cost', 'time', 'tag_id')
+            ->whereDate('time', date('Y-m-d'))
+            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
             ->get();
-
-        /**
-         * alternative query
-         */
-        // return Bill::join('tags', 'tags.id', '=', 'bills.tag_id')
-        //     ->leftJoin('subtags', 'subtags.id', '=', 'bills.subtag_id')
-        //     ->select('bills.role', 'bills.cost', 'bills.time', 'tags.name AS tag_name', 'subtags.name AS subtag_name')
-        //     ->whereDate('time', '=', date('Y-m-d'))
-        //     ->get();
     }
 
     public function weekCost()
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id')
+        return Bill::select(\DB::raw("DAY(`time`) AS `day`, SUM(`cost`) AS `sum`"))
             ->whereBetween('time', [
                 date('Y-m-d', strtotime('last monday', strtotime('now'))), 
                 date('Y-m-d', strtotime('next sunday', strtotime('now')))
                 ])
-            ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
-                ])
+            ->groupBy(\DB::raw("DAY(`time`)"))
             ->get();
     }
 
     public function monthCost()
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id')
+        return Bill::select(\DB::raw("DAY(`time`) AS `day`, SUM(`cost`) AS `sum`"))
             ->whereMonth('time', date('m'))
-            ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
-                ])
+            ->groupBy(\DB::raw("DAY(`time`)"))
             ->get();
     }
 
     public function yearCost()
     {
-        return Bill::select('role', 'cost', 'time', 'tag_id', 'subtag_id')
+        return Bill::select(\DB::raw("MONTH(`time`) AS `month`, SUM(`cost`) AS `sum`"))
             ->whereYear('time', date('Y'))
-            ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
-                ])
+            ->groupBy(\DB::raw("MONTH(`time`)"))
             ->get();
     }
 
     public function todayCostByTag()
     {
-        return Tag::select('id', 'name')->with(['bill' => function ($query) {
-            $query->select('tag_id', 'cost', 'time')->whereDate('time', '=', date('Y-m-d'));
-        }])
+        return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
+        ->whereDate('time', date('Y-m-d'))
+        ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+        ->groupBy(\DB::raw("`tag_id`"))
         ->get();
     }
 
     public function weekCostByTag()
     {
-        return Tag::select('id', 'name')->with(['bill' => function ($query) {
-            $query->select('tag_id', 'cost', 'time')
-            ->whereBetween('time', [
-                date('Y-m-d', strtotime('last monday', strtotime('now'))), 
-                date('Y-m-d', strtotime('next sunday', strtotime('now')))
-                ]);
-        }])
-        ->get();
-    }
-
-    public function monthCostByTag()
-    {
-        return Tag::select('id', 'name')->with(['bill' => function ($query) {
-            $query->select('tag_id', 'cost', 'time')
-            ->whereMonth('time', date('m'));
-        }])
-        ->get();
-    }
-
-    public function yearCostByTag()
-    {
-        return Tag::select('id', 'name')->with(['bill' => function ($query) {
-            $query->select('tag_id', 'cost', 'time')
-            ->whereYear('time', date('Y'));
-        }])
-        ->get();
-    }
-
-    public function todayCostByRole(string $role)
-    {
-        return Bill::select('id', 'role', 'time', 'cost')
-            ->where('role', $role)
-            ->whereDate('time', '=', date('Y-m-d'))
-            ->get();
-    }
-
-    public function weekCostByRole(string $role)
-    {
-        return Bill::select('id', 'role', 'time', 'cost')
-            ->where('role', $role)
+        return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
             ->whereBetween('time', [
                 date('Y-m-d', strtotime('last monday', strtotime('now'))), 
                 date('Y-m-d', strtotime('next sunday', strtotime('now')))
                 ])
+            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->groupBy(\DB::raw("`tag_id`"))
             ->get();
     }
 
-    public function monthCostByRole(string $role)
+    public function monthCostByTag()
     {
-        return Bill::select('id', 'role', 'time', 'cost')
-            ->where('role', $role)
+        return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
             ->whereMonth('time', date('m'))
+            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->groupBy(\DB::raw("`tag_id`"))
             ->get();
     }
 
-    public function yearCostByRole(string $role)
+    public function yearCostByTag()
     {
-        return Bill::select('id', 'role', 'time', 'cost')
-            ->where('role', $role)
+        return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
             ->whereYear('time', date('Y'))
+            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->groupBy(\DB::raw("`tag_id`"))
+            ->get();
+    }
+
+    public function todayCostByRole()
+    {
+        return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
+            ->whereDate('time', date('Y-m-d'))
+            ->groupBy(\DB::raw("`role`"))
+            ->get();
+    }
+
+    public function weekCostByRole()
+    {
+        return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
+            ->whereBetween('time', [
+                date('Y-m-d', strtotime('last sunday', strtotime('now'))), 
+                date('Y-m-d', strtotime('next monday', strtotime('now')))
+                ])
+            ->groupBy(\DB::raw("`role`"))
+            ->get();
+    }
+
+    public function monthCostByRole()
+    {
+        return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
+            ->whereMonth('time', date('m'))
+            ->groupBy(\DB::raw("`role`"))
+            ->get();
+    }
+
+    public function yearCostByRole()
+    {
+        return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
+            ->whereYear('time', date('Y'))
+            ->groupBy(\DB::raw("`role`"))
             ->get();
     }
 }
