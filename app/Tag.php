@@ -3,15 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tag extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $guarded = [];
+    protected $dates = ['deleted_at'];
 
     /**
      * Tag 和 subtag 為一對多關係

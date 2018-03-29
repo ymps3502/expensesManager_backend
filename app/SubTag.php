@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Subtag extends Model
 {
@@ -12,6 +13,7 @@ class Subtag extends Model
      * @var array
      */
     protected $guarded = [];
+    protected $dates = ['deleted_at'];
 
     /**
      * subtag 屬於 Tag
