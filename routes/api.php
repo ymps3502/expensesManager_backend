@@ -42,14 +42,14 @@ Route::group(['prefix' => 'bill'], function () {
         Route::get('role', 'BillController@showYearRoleCost');
     });
     Route::put('update/{id}', 'BillController@update');
-    Route::delete('delete/{id}', 'BillController@destroy');
+    Route::delete('delete', 'BillController@destroy');
 });
 
 Route::group(['prefix' => 'tag'], function () {
     Route::post('add', 'TagController@storeTag');
     Route::get('all', 'TagController@showAllTag');
     Route::put('update/{id}', 'TagController@updateTag');
-    Route::delete('delete/{id}', 'TagController@destroyTag');
+    Route::delete('delete', 'TagController@destroyTag');
 });
 
 Route::group(['prefix' => 'subtag'], function () {
