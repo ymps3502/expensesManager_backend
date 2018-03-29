@@ -17,7 +17,7 @@ class BillRepository
         return Bill::find($id)->update($attributes);
     }
 
-    public function delete(int $id)
+    public function delete(array $id)
     {
         return Bill::destroy($id);
     }
@@ -122,6 +122,7 @@ class BillRepository
         return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
             ->whereDate('time', date('Y-m-d'))
             ->groupBy(\DB::raw("`role`"))
+            ->orderByRaw("FIELD(role , '自己', '女友', '其他') ASC")
             ->get();
     }
 
@@ -133,6 +134,7 @@ class BillRepository
                 date('Y-m-d', strtotime('next monday', strtotime('now')))
                 ])
             ->groupBy(\DB::raw("`role`"))
+            ->orderByRaw("FIELD(role , '自己', '女友', '其他') ASC")
             ->get();
     }
 
@@ -141,6 +143,7 @@ class BillRepository
         return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
             ->whereMonth('time', date('m'))
             ->groupBy(\DB::raw("`role`"))
+            ->orderByRaw("FIELD(role , '自己', '女友', '其他') ASC")
             ->get();
     }
 
@@ -149,6 +152,7 @@ class BillRepository
         return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
             ->whereYear('time', date('Y'))
             ->groupBy(\DB::raw("`role`"))
+            ->orderByRaw("FIELD(role , '自己', '女友', '其他') ASC")
             ->get();
     }
 }
