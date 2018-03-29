@@ -28,9 +28,9 @@ class TagRepository
         return Subtag::find($id)->update($attributes);
     }
 
-    public function deleteTag(int $id)
+    public function deleteTag(array $tag)
     {
-        return Tag::destroy($id);
+        return Tag::destroy($tag);
     }
 
     public function deleteSubtag(int $id)
