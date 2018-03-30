@@ -79,12 +79,12 @@ class TagController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroyTag(int $id)
+    public function destroyTag(Request $request)
     {
-        $this->repository->deleteTag($id);
+        $this->repository->deleteTag($request->id);
         return response()->json(['msg' => 'delete tag successfully'], 200);
     }
 

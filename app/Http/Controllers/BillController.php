@@ -198,12 +198,12 @@ class BillController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Request $request)
     {
-        $this->repository->delete($id);
+        $this->repository->delete($request->id);
         return response()->json(['msg' => 'delete bill successfully'], 200);
     }
 }
