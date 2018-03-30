@@ -26,8 +26,8 @@ class BillRepository
     {
         return Bill::select('id', 'role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
             ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
+                'tag' => function ($query) { $query->select('id', 'name')->withTrashed(); },
+                'subtag' => function ($query) { $query->select('id', 'name')->withTrashed(); }
                 ])
             ->get();
     }
@@ -37,8 +37,8 @@ class BillRepository
         return Bill::select('id', 'role', 'cost', 'time', 'tag_id', 'subtag_id', 'note')
             ->where('tag_id', $tagId)
             ->with([
-                'tag' => function ($query) { $query->select('id', 'name'); },
-                'subtag' => function ($query) { $query->select('id', 'name'); }
+                'tag' => function ($query) { $query->select('id', 'name')->withTrashed(); },
+                'subtag' => function ($query) { $query->select('id', 'name')->withTrashed(); }
                 ])
             ->get();
     }
@@ -47,7 +47,7 @@ class BillRepository
     {
         return Bill::select('role', 'cost', 'time', 'tag_id')
             ->whereDate('time', date('Y-m-d'))
-            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
             ->get();
     }
 
@@ -81,10 +81,10 @@ class BillRepository
     public function todayCostByTag()
     {
         return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
-        ->whereDate('time', date('Y-m-d'))
-        ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
-        ->groupBy(\DB::raw("`tag_id`"))
-        ->get();
+            ->whereDate('time', date('Y-m-d'))
+            ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
+            ->groupBy(\DB::raw("`tag_id`"))
+            ->get();
     }
 
     public function weekCostByTag()
@@ -94,7 +94,7 @@ class BillRepository
                 date('Y-m-d', strtotime('last monday', strtotime('now'))), 
                 date('Y-m-d', strtotime('next sunday', strtotime('now')))
                 ])
-            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
             ->groupBy(\DB::raw("`tag_id`"))
             ->get();
     }
@@ -103,7 +103,7 @@ class BillRepository
     {
         return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
             ->whereMonth('time', date('m'))
-            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
             ->groupBy(\DB::raw("`tag_id`"))
             ->get();
     }
@@ -112,7 +112,7 @@ class BillRepository
     {
         return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
             ->whereYear('time', date('Y'))
-            ->with(['tag' => function ($query) { $query->select('id', 'name'); }])
+            ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
             ->groupBy(\DB::raw("`tag_id`"))
             ->get();
     }

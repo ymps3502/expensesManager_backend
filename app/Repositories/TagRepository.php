@@ -28,14 +28,14 @@ class TagRepository
         return Subtag::find($id)->update($attributes);
     }
 
-    public function deleteTag(array $tag)
+    public function deleteTag(array $id)
     {
-        return Tag::destroy($tag);
+        return Tag::whereIn('id', $id)->delete();
     }
 
     public function deleteSubtag(int $id)
     {
-        return Subtag::destroy($id);
+        return Subtag::find($id)->delete();
     }
 
     public function allTag()
