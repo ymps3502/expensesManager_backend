@@ -65,6 +65,7 @@ class BillRepository
     public function monthCost()
     {
         return Bill::select(\DB::raw("DAY(`time`) AS `day`, SUM(`cost`) AS `sum`"))
+            ->whereYear('time', date('Y'))
             ->whereMonth('time', date('m'))
             ->groupBy(\DB::raw("DAY(`time`)"))
             ->get();
@@ -102,6 +103,7 @@ class BillRepository
     public function monthCostByTag()
     {
         return Bill::select(\DB::raw("`tag_id`, SUM(`cost`) AS `sum`"))
+            ->whereYear('time', date('Y'))
             ->whereMonth('time', date('m'))
             ->with(['tag' => function ($query) { $query->select('id', 'name')->withTrashed(); }])
             ->groupBy(\DB::raw("`tag_id`"))
@@ -141,6 +143,7 @@ class BillRepository
     public function monthCostByRole()
     {
         return Bill::select(\DB::raw("`role`, SUM(`cost`) AS `sum`"))
+        ->whereYear('time', date('Y'))
             ->whereMonth('time', date('m'))
             ->groupBy(\DB::raw("`role`"))
             ->orderByRaw("FIELD(role , '自己', '女友', '其他') ASC")
