@@ -24,7 +24,7 @@ class TagController extends Controller
     public function storeTag(Request $request)
     {
         $this->repository->createTag($request->all());
-        return response()->json(['msg' => 'add tag successfully'], 201);
+        return response()->json(['message' => 'add tag successfully'], 201);
     }
 
     /**
@@ -36,7 +36,7 @@ class TagController extends Controller
     public function storeSubtag(Request $request)
     {
         $this->repository->createSubtag($request->all());
-        return response()->json(['msg' => 'add subtag successfully'], 201);
+        return response()->json(['message' => 'add subtag successfully'], 201);
     }
 
     /**
@@ -60,7 +60,7 @@ class TagController extends Controller
     public function updateTag(Request $request, int $id)
     {
         $this->repository->updateTag($id, $request->all());
-        return response()->json(['msg' => 'update tag successfully'], 200);
+        return response()->json(['message' => 'update tag successfully'], 200);
     }
 
     /**
@@ -73,7 +73,7 @@ class TagController extends Controller
     public function updateSubtag(Request $request, int $id)
     {
         $this->repository->updateSubtag($id, $request->all());
-        return response()->json(['msg' => 'update subtag successfully'], 200);
+        return response()->json(['message' => 'update subtag successfully'], 200);
     }
 
     /**
@@ -85,7 +85,7 @@ class TagController extends Controller
     public function destroyTag(Request $request)
     {
         $this->repository->deleteTag($request->id);
-        return response()->json(['msg' => 'delete tag successfully'], 200);
+        return response()->json(['message' => 'delete tag successfully'], 200);
     }
 
     /**
@@ -97,6 +97,6 @@ class TagController extends Controller
     public function destroySubtag(int $id)
     {
         $this->repository->deleteSubtag($id);
-        return response()->json(['msg' => 'delete subtag successfully'], 200);
+        return response()->json(['message' => 'delete subtag successfully'], 200);
     }
 }

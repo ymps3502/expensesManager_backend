@@ -41,7 +41,7 @@ class BillControllerTest extends TestCase
 
         $response = $this->post('api/bill/add');
         $response->assertStatus(201)
-            ->assertJson(['msg' => 'add bill successfully']);
+            ->assertJson(['message' => 'add bill successfully']);
     }
 
     /**
@@ -250,7 +250,7 @@ class BillControllerTest extends TestCase
 
         $response = $this->put('api/bill/update/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'update bill successfully']);
+            ->assertJson(['message' => 'update bill successfully']);
     }
 
     /**
@@ -265,6 +265,6 @@ class BillControllerTest extends TestCase
 
         $response = $this->delete('api/bill/delete/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'delete bill successfully']);
+            ->assertJson(['message' => 'delete bill successfully']);
     }
 }

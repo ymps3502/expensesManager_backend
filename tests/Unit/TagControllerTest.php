@@ -41,7 +41,7 @@ class TagControllerTest extends TestCase
 
         $response = $this->post('api/tag/add');
         $response->assertStatus(201)
-            ->assertJson(['msg' => 'add tag successfully']);
+            ->assertJson(['message' => 'add tag successfully']);
     }
     
     /**
@@ -56,7 +56,7 @@ class TagControllerTest extends TestCase
 
         $response = $this->post('api/subtag/add');
         $response->assertStatus(201)
-            ->assertJson(['msg' => 'add subtag successfully']);
+            ->assertJson(['message' => 'add subtag successfully']);
     }
         
     /**
@@ -85,7 +85,7 @@ class TagControllerTest extends TestCase
 
         $response = $this->put('api/tag/update/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'update tag successfully']);
+            ->assertJson(['message' => 'update tag successfully']);
     }
     
     /**
@@ -100,7 +100,7 @@ class TagControllerTest extends TestCase
 
         $response = $this->put('api/subtag/update/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'update subtag successfully']);
+            ->assertJson(['message' => 'update subtag successfully']);
     }
     
     /**
@@ -115,7 +115,7 @@ class TagControllerTest extends TestCase
 
         $response = $this->delete('api/tag/delete/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'delete tag successfully']);
+            ->assertJson(['message' => 'delete tag successfully']);
     }
     
     /**
@@ -130,6 +130,6 @@ class TagControllerTest extends TestCase
 
         $response = $this->delete('api/subtag/delete/1');
         $response->assertStatus(200)
-            ->assertJson(['msg' => 'delete subtag successfully']);
+            ->assertJson(['message' => 'delete subtag successfully']);
     }
 }

@@ -24,7 +24,7 @@ class BillController extends Controller
     public function store(Request $request)
     {
         $this->repository->create($request->all());
-        return response()->json(['msg' => 'add bill successfully'], 201);
+        return response()->json(['message' => 'add bill successfully'], 201);
     }
 
     /**
@@ -192,7 +192,7 @@ class BillController extends Controller
     public function update(Request $request, int $id)
     {
         $this->repository->update($id, $request->all());
-        return response()->json(['msg' => 'update bill successfully'], 200);
+        return response()->json(['message' => 'update bill successfully'], 200);
     }
 
     /**
@@ -204,6 +204,6 @@ class BillController extends Controller
     public function destroy(Request $request)
     {
         $this->repository->delete($request->id);
-        return response()->json(['msg' => 'delete bill successfully'], 200);
+        return response()->json(['message' => 'delete bill successfully'], 200);
     }
 }

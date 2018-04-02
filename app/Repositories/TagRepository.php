@@ -42,6 +42,7 @@ class TagRepository
     {
         return Tag::select('id', 'name')
             ->with(['subtag' => function ($query) { $query->select('id', 'name', 'tag_id'); }])
+            ->orderByRaw("FIELD(name , '正餐', '零食飲料', '車費', '食材', '儲值', '日用品', '生活費', '娛樂', '其他') ASC")
             ->get();
     }
 }
